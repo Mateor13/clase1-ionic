@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Taller</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Tu nombre</ion-label>
+    <ion-input [(ngModel)]="nombre" placeholder="Escribe tu nombre..."></ion-input>
+  </ion-item>
+
+  <p *ngIf="nombre">Hola, {{ nombre }}!</p>
+  <ion-button id="open-toast" expand="block">Abrir</ion-button>
+  <p id="message">Este botón abre muchas cosas</p>
+  <ion-toast trigger="open-toast" message="Ya me voy en 5 segundos" [duration]="5000"></ion-toast>
+  <ion-list>
+    <ion-radio-group [compareWith]="compareWith" (ionChange)="handleChange($event)">
+      @for (food of foods; track food.id) {
+      <ion-item>
+        <ion-radio [value]="food">{{ food.nombre }}</ion-radio>
+      </ion-item>
+      }
+    </ion-radio-group>
+  </ion-list>
+  <ion-checkbox>Acepto los términos y condiciones</ion-checkbox>
+  <ion-datetime value="2025-04-21T00:00:00" min="2025-03-01T00:00:00" max="2025-05-31T23:59:59"></ion-datetime>
+  <ion-button id="present-alert">Aplástame</ion-button>
+  <ion-alert
+    trigger="present-alert"
+    header="Advertencia"
+    subHeader="Este mensaje es para desearte un buen día"
+    message="Eres lo mejor del mundo"
+    [buttons]="alertButtons"
+  ></ion-alert>
+  <ion-list>
+    @for (item of items; track item; let index = $index) {
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+      </ion-avatar>
+      <ion-label>{{ item }}</ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
